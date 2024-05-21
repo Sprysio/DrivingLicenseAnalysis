@@ -19,7 +19,7 @@ git pull origin main
 
 file -> clone repository -> url 
 
-powinno dzialac
+tak powinno byc w github desktop
 
 # 2. Make .env file in /server:
 
