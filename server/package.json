@@ -8,7 +8,10 @@
     "joi-password-complexity": "^5.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.0",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "pg": "^8.11.5",
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2"
   },
   "scripts": {
     "start": "nodemon index.js"

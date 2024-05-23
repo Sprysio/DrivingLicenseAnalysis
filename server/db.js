@@ -1,16 +1,23 @@
-const mongoose = require("mongoose");
+const { Sequelize } = require('sequelize');
+const config = require('./config/config.json');
 
-module.exports = () => {
-  const connectionParams = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  };
+const env = process.env.NODE_ENV || 'database';
+const dbConfig = config[env];
 
-  try {
-    mongoose.connect(process.env.MONGODB_URI, connectionParams);
-    console.log("Connected to database successfully");
-  } catch (error) {
-    console.log(error);
-    console.log("Could not connect to database!");
+const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
+  host: dbConfig.host,
+  port: dbConfig.port, // Add port configuration
+  dialect: 'postgres', // Assuming you're using PostgreSQL
+  dialectOptions: {
+    connectTimeout: 10000 // Adjust as needed
   }
-};
+});
+// Test the database connection
+sequelize.authenticate()
+  .then(() => {
+    console.log('Database connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+module.exports = sequelize;
