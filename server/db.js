@@ -10,7 +10,8 @@ const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.p
   dialect: 'postgres', // Assuming you're using PostgreSQL
   dialectOptions: {
     connectTimeout: 10000 // Adjust as needed
-  }
+  },
+  logging: console.log
 });
 // Test the database connection
 sequelize.authenticate()
