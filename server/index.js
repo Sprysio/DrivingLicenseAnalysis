@@ -14,6 +14,7 @@ app.use(cors())
 
 
  app.get("/api/data/",tokenVerification)
+ app.get("/api/data/download-json",tokenVerification)
 
 
 app.use("/api/users", userRoutes)
