@@ -4,15 +4,16 @@ const sequelize = require('../db');
 const Data = sequelize.define('Data', {
     DATA_MC: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     KOD_WOJ: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     WOJEWODZTWO: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      collate: 'C'
     },
     PLEC: {
       type: DataTypes.STRING,
@@ -28,7 +29,9 @@ const Data = sequelize.define('Data', {
     }
   },{
     tableName: 'Data',
-    timestamps: false
+    timestamps: false,
+    charset: 'utf8',
+    collate: 'C'
   });
   
   module.exports = {Data}
