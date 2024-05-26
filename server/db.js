@@ -11,7 +11,15 @@ const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.p
   dialectOptions: {
     connectTimeout: 10000 // Adjust as needed
   },
-  logging: console.log
+  logging: console.log,
+  dialectOptions: {
+    charset: 'utf8',
+    collate: 'C'
+  },
+  define: {
+    charset: 'utf8',
+    collate: 'C'
+  }
 });
 // Test the database connection
 sequelize.authenticate()
