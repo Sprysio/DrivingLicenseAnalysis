@@ -4,7 +4,9 @@
     "port": 3307,
     "username": "postgres",
     "password": "8WYAGw8fXQQG4nnX7THv",
-    "database": "drivingstatisticsdb"
+    "database": "drivingstatisticsdb",
+    "dialect":"postgres"
   }
+  
 }
 
