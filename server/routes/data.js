@@ -15,7 +15,11 @@ router.get("/", async (req, res) => {
     })
 router.get("/download-json", async (req, res) => {
     try {
-        const data = await Data.findAll({raw:true})
+
+        const data = await Data.findAll({
+            attributes: ['DATA_MC', 'KOD_WOJ', 'WOJEWODZTWO', 'PLEC', 'WIEK', 'LICZBA'],
+            raw: true
+    })
 
         const jsonData = JSON.stringify(data, null, 2)
         // fs.writeFileSync('nowe_prawa_jazdy.json', jsonData)// pobiera w folderze servera
