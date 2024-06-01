@@ -50,7 +50,10 @@ router.get("/download-json", async (req, res) => {
         const data = await Data.findAll({
             where: whereConditions,
             attributes: ['DATA_MC', 'KOD_WOJ', 'WOJEWODZTWO', 'PLEC', 'WIEK', 'LICZBA'],
-            raw: true
+            raw: true,
+            order: [
+                ['DATA_MC', 'ASC']
+            ]
         });
 
         const filename = `dane_prawa_jazdy_${Object.values(whereConditions).filter(value => !!value).join('_') || ''}.json`;
