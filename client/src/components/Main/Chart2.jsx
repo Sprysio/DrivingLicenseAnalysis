@@ -1,8 +1,9 @@
 import React, { useState } from 'react'; 
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 
 const Chart2 = ({ data }) => {
+    
     const [ageFilter, setAgeFilter] = useState({ min: 0, max: 100 });
 
     // Filtrujemy dane na podstawie wieku
@@ -24,19 +25,25 @@ const Chart2 = ({ data }) => {
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1,
+            fill: true,  // Opcjonalne, aby wypełnić obszar pod linią
+            tension: 0.4 // Opcjonalne, aby linie były bardziej krzywe
         }],
     };
 
     // Funkcja do aktualizacji filtru minimalnego wieku
     const handleMinAgeFilterChange = (event) => {
         const min = parseInt(event.target.value);
-        setAgeFilter({ ...ageFilter, min });
+        if (min <= ageFilter.max) {
+            setAgeFilter({ ...ageFilter, min });
+        }
     };
 
     // Funkcja do aktualizacji filtru maksymalnego wieku
     const handleMaxAgeFilterChange = (event) => {
         const max = parseInt(event.target.value);
-        setAgeFilter({ ...ageFilter, max });
+        if (max >= ageFilter.min) {
+            setAgeFilter({ ...ageFilter, max });
+        }
     };
 
     return (
@@ -62,7 +69,7 @@ const Chart2 = ({ data }) => {
             </div>
             <div style={{ width: '800px', height: '500px' }}>
                 <h2>Stosunek wydawanych praw jazdy do wieku</h2>
-                <Bar data={ageChartData} />
+                <Line data={ageChartData} />
             </div>
         </div>
     );

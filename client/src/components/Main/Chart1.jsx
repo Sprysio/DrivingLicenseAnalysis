@@ -2,7 +2,7 @@ import Chart from 'chart.js/auto';
 
 import React, { useState } from 'react'; 
 import { Bar } from 'react-chartjs-2';
-
+import styles from "./styles.module.css";
 
 const Chart1 = ({ data }) => {
     const [genderFilter, setGenderFilter] = useState('all');
@@ -42,10 +42,10 @@ const Chart1 = ({ data }) => {
 
     return (
         <div>
-            <div>
-                <button onClick={() => handleGenderFilterChange('all')}>Wszyscy</button>
-                <button onClick={() => handleGenderFilterChange('K')}>Kobiety</button>
-                <button onClick={() => handleGenderFilterChange('M')}>Mężczyźni</button>
+            <div className="button-group">
+                <button className="filter-button" onClick={() => handleGenderFilterChange('all')}>Wszyscy</button>
+                <button className="filter-button" onClick={() => handleGenderFilterChange('K')}>Kobiety</button>
+                <button className="filter-button" onClick={() => handleGenderFilterChange('M')}>Mężczyźni</button>
             </div>
             <div style={{ width: '800px', height: '500px' }}>
                 <h2>Liczba osób w województwach</h2>
