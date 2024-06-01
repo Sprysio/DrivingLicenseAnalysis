@@ -1,52 +1,60 @@
 import Chart from 'chart.js/auto';
-
-import React, { useState } from 'react'; 
+import React from 'react'; 
 import { Bar } from 'react-chartjs-2';
 import styles from "./styles.module.css";
-
 const Chart1 = ({ data }) => {
-    const [genderFilter, setGenderFilter] = useState('all');
-
-    // Filtrujemy dane na podstawie płci
-    const filteredData = data.filter(item => {
-        if (genderFilter === 'all') {
-            return true;
-        }
-        return item.PLEC === genderFilter;
-    });
-
-    // Obliczamy liczbę osób w zależności od województwa
-    const wojewodztwoData = {};
-    filteredData.forEach(item => {
-        wojewodztwoData[item.WOJEWODZTWO] = (wojewodztwoData[item.WOJEWODZTWO] || 0) + item.LICZBA;
-    });
-    
-    const sortedKeys = Object.keys(wojewodztwoData).sort();
-    const wojewodztwoChartData = {
-        labels: sortedKeys,
-        datasets: [{
-            label: 'Liczba osób',
-            data: sortedKeys.map(key => wojewodztwoData[key]),
-            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-            borderColor: 'rgba(153, 102, 255, 1)',
-            borderWidth: 1,
-            categoryPercentage: 0.8,
-            barPercentage: 0.9
-        }],
+    // Funkcja do obliczania danych w zależności od płci
+    const calculateDataByGender = (gender) => {
+        const filteredData = data.filter(item => gender === 'all' || item.PLEC === gender);
+        const wojewodztwoData = {};
+        filteredData.forEach(item => {
+            wojewodztwoData[item.WOJEWODZTWO] = (wojewodztwoData[item.WOJEWODZTWO] || 0) + item.LICZBA;
+        });
+        return wojewodztwoData;
     };
 
-    // Funkcja do aktualizacji filtru płci
-    const handleGenderFilterChange = (gender) => {
-        setGenderFilter(gender);
+    // Obliczamy dane dla wszystkich, kobiet i mężczyzn
+    const allData = calculateDataByGender('all');
+    const womenData = calculateDataByGender('K');
+    const menData = calculateDataByGender('M');
+
+    const sortedKeys = Object.keys(allData).sort();
+
+    const wojewodztwoChartData = {
+        labels: sortedKeys,
+        datasets: [
+            {
+                label: 'Wszyscy',
+                data: sortedKeys.map(key => allData[key]),
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1,
+                categoryPercentage: 0.6, // Zmniejszono szerokość kategorii
+                barPercentage: 1, // Pełna szerokość słupka
+            },
+            {
+                label: 'Kobiety',
+                data: sortedKeys.map(key => womenData[key]),
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+                categoryPercentage: 0.6, // Zmniejszono szerokość kategorii
+                barPercentage: 1, // Pełna szerokość słupka
+            },
+            {
+                label: 'Mężczyźni',
+                data: sortedKeys.map(key => menData[key]),
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                categoryPercentage: 0.6, // Zmniejszono szerokość kategorii
+                barPercentage: 1, // Pełna szerokość słupka
+            }
+        ],
     };
 
     return (
-        <div>
-            <div className="button-group">
-                <button className="filter-button" onClick={() => handleGenderFilterChange('all')}>Wszyscy</button>
-                <button className="filter-button" onClick={() => handleGenderFilterChange('K')}>Kobiety</button>
-                <button className="filter-button" onClick={() => handleGenderFilterChange('M')}>Mężczyźni</button>
-            </div>
+        <div className={styles.chartContainer}>
             <div style={{ width: '800px', height: '500px' }}>
                 <h2>Liczba osób w województwach</h2>
                 <Bar data={wojewodztwoChartData} />
