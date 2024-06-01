@@ -7,7 +7,12 @@ const fs = require('fs')
 router.get("/", async (req, res) => {
     try {
         //const data = await sequelize.query('SELECT * FROM public."Data"', { type: QueryTypes.SELECT });
-        const data = await Data.findAll({raw:true});
+        const data = await Data.findAll({
+            raw: true,
+            order: [
+                ['DATA_MC', 'ASC'] // Sortowanie rosnące po DATA_MC
+            ]
+        });
         res.status(200).send(data);
     } catch (error) {
         res.status(500).send({ message: "Internal Server Error" })
