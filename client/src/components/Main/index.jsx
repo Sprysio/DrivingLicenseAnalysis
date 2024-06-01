@@ -99,7 +99,7 @@ const Main = () => {
         </button>
       </nav>
       <div className={styles.filters}>
-        <label>Data MC:</label>
+        <label>Miesiąc:</label>
         <select onChange={(e) => handleFilterChange('DATA_MC', e.target.value)} value={filters.DATA_MC}>
           <option value="">Wszystkie</option>
           <option value="2023-01">2023-01</option>
