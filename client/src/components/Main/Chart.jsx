@@ -1,16 +1,30 @@
+import Chart from 'chart.js/auto';
+
 import React, { useState } from 'react'; 
 import { Bar } from 'react-chartjs-2';
-import Chart from 'chart.js/auto';
 
 const MyChart = ({ data }) => {
     const [genderFilter, setGenderFilter] = useState('all');
+    const [ageFilter, setAgeFilter] = useState({ min: 0, max: 100 });
 
-    // Wykres liczby osób w zależności od województwa
-    const wojewodztwoData = {};
-    data.forEach(item => {
-        if (genderFilter === 'all' || item.PLEC === genderFilter) {
-            wojewodztwoData[item.WOJEWODZTWO] = (wojewodztwoData[item.WOJEWODZTWO] || 0) + item.LICZBA;
+    // Filtrujemy dane na podstawie płci
+    const filteredData = data.filter(item => {
+        if (genderFilter === 'all') {
+            return true;
         }
+        return item.PLEC === genderFilter;
+    });
+
+    // Filtrujemy dane na podstawie wieku
+    const ageFilteredData = filteredData.filter(item => {
+        const age = parseInt(item.WIEK);
+        return age >= ageFilter.min && age <= ageFilter.max;
+    });
+
+    // Obliczamy liczbę osób w zależności od województwa
+    const wojewodztwoData = {};
+    filteredData.forEach(item => {
+        wojewodztwoData[item.WOJEWODZTWO] = (wojewodztwoData[item.WOJEWODZTWO] || 0) + item.LICZBA;
     });
     
     const sortedKeys = Object.keys(wojewodztwoData).sort();
@@ -27,9 +41,9 @@ const MyChart = ({ data }) => {
         }],
     };
 
-    // Wykres stosunku wydawanych praw jazdy do wieku
+    // Obliczamy liczbę wydanych praw jazdy w zależności od wieku
     const ageData = {};
-    data.forEach(item => {
+    ageFilteredData.forEach(item => {
         ageData[item.WIEK] = (ageData[item.WIEK] || 0) + item.LICZBA;
     });
     const ageChartData = {
@@ -43,57 +57,60 @@ const MyChart = ({ data }) => {
         }],
     };
 
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            x: {
-                ticks: {
-                    maxRotation: 0,
-                    minRotation: 0
-                }
-            },
-            y: {
-                min: 0,
-                ticks: {
-                    stepSize: 5000,
-                    callback: function(value, index, values) {
-                        return value;
-                    }
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                display: true,
-                position: 'top',
-            }
-        }
-    };
-
+    // Funkcja do aktualizacji filtru płci
     const handleGenderFilterChange = (gender) => {
         setGenderFilter(gender);
     };
 
+    // Funkcja do aktualizacji filtru minimalnego wieku
+    const handleMinAgeFilterChange = (event) => {
+        const min = parseInt(event.target.value);
+        setAgeFilter({ ...ageFilter, min });
+    };
+
+    // Funkcja do aktualizacji filtru maksymalnego wieku
+    const handleMaxAgeFilterChange = (event) => {
+        const max = parseInt(event.target.value);
+        setAgeFilter({ ...ageFilter, max });
+    };
+
     return (
         <div>
+            {/* Chart num 1 */}
             <div>
                 <button onClick={() => handleGenderFilterChange('all')}>Wszyscy</button>
                 <button onClick={() => handleGenderFilterChange('K')}>Kobiety</button>
                 <button onClick={() => handleGenderFilterChange('M')}>Mężczyźni</button>
             </div>
-            <div style={{ marginBottom: '20px' }}>
-            <div style={{ width: '800px', height: '500px' }}>
-                    <h2>Liczba osób w województwach</h2>
-                    <Bar data={wojewodztwoChartData} options={options} />
-                </div>
-            </div>
-            <p><br></br></p>
+
             <div>
-            <div style={{ width: '800px', height: '500px' }}>
-                    <h2>Stosunek wydawanych praw jazdy do wieku</h2>
-                    <Bar data={ageChartData} options={options} />
-                </div>
+                <h2>Liczba osób w województwach</h2>
+                <Bar data={wojewodztwoChartData} />
+            </div>
+
+            {/* Chart num 2 */}
+            <div>
+                <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value={ageFilter.min}
+                    onChange={handleMinAgeFilterChange}
+                />
+                <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value={ageFilter.max}
+                    onChange={handleMaxAgeFilterChange}
+                />
+                <span>Wybierz zakres wieku: {ageFilter.min} - {ageFilter.max}</span>
+            </div>
+            <div>
+                <h2>Stosunek wydawanych praw jazdy do wieku</h2>
+                <Bar data={ageChartData} />
             </div>
         </div>
     );
