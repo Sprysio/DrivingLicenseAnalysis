@@ -87,3 +87,18 @@
     padding: 10px;
     margin: 0 10px;
 }
+.filters {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filters label {
+    font-weight: bold;
+}
+.download_button {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
