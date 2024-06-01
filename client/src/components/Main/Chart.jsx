@@ -1,7 +1,8 @@
 import React, { useState } from 'react'; 
 import { Bar } from 'react-chartjs-2';
+import Chart from 'chart.js/auto';
 
-const Chart = ({ data }) => {
+const MyChart = ({ data }) => {
     const [genderFilter, setGenderFilter] = useState('all');
 
     // Wykres liczby osób w zależności od województwa
@@ -98,4 +99,4 @@ const Chart = ({ data }) => {
     );
 };
 
-export default Chart;
+export default MyChart;

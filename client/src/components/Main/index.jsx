@@ -140,7 +140,7 @@ const Main = () => {
                     &#8594;
                 </button>
             </div>
-            <Chart data={data} />  {/* Dodaj komponent wykresu */}
+        <Chart data={data} />
 
         </div>
 
