@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./styles.module.css";
-import Chart from "./Chart"; 
+import Chart1 from "./Chart1";
+import Chart2 from "./Chart2"; 
+import Chart3 from "./Chart3";  
 
 const Main = () => {
   const [data, setData] = useState([])
@@ -207,7 +209,9 @@ const Main = () => {
                     Pobierz powyższe dane
                 </button>
             </div>
-        <Chart data={dataCharts} />
+        <Chart1 data={dataCharts} />
+        <Chart2 data={dataCharts} />
+        <Chart3 data={dataCharts} />
 
         </div>
 
