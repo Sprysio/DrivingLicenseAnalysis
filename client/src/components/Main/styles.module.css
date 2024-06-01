@@ -66,3 +66,24 @@
     justify-content: center;
     gap: 10px;
 }
+
+.table_controls {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table_controls label {
+    font-weight: bold;
+}
+
+.arrow_btn {
+    border: none;
+    outline: none;
+    background-color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 0 10px;
+}
