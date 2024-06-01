@@ -8,7 +8,8 @@ const Chart1 = ({ data }) => {
         const filteredData = data.filter(item => gender === 'all' || item.PLEC === gender);
         const wojewodztwoData = {};
         filteredData.forEach(item => {
-            wojewodztwoData[item.WOJEWODZTWO] = (wojewodztwoData[item.WOJEWODZTWO] || 0) + item.LICZBA;
+            const wojewodztwo = item.WOJEWODZTWO.toLowerCase().replace("woj. ", "");
+            wojewodztwoData[wojewodztwo] = (wojewodztwoData[wojewodztwo] || 0) + item.LICZBA;
         });
         return wojewodztwoData;
     };
