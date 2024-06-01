@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./styles.module.css";
+import Chart from "./Chart"; 
 
 const Main = () => {
     const [data, setData] = useState([]);
@@ -139,7 +140,11 @@ const Main = () => {
                     &#8594;
                 </button>
             </div>
+            <Chart data={data} />  {/* Dodaj komponent wykresu */}
+
         </div>
+
+       
     );
 };
 
