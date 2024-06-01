@@ -5,6 +5,8 @@ import Chart from "./Chart";
 
 const Main = () => {
   const [data, setData] = useState([])
+  const [dataCharts, setDataCharts] = useState([])
+  const [isFetched, setisFetched] = useState(false)
   const [rowsPerPage, setRowsPerPage] = useState(100)
   const [currentPage, setCurrentPage] = useState(0)
   const [filters, setFilters] = useState({ DATA_MC: '', WOJEWODZTWO: '', PLEC: '' })
@@ -28,6 +30,11 @@ const Main = () => {
         params: filters,
       })
       setData(response.data)
+      if(!isFetched){
+        setDataCharts(response.data)
+        setisFetched(true)
+    
+      }
     } catch (error) {
       console.log(error)
     }
@@ -200,7 +207,7 @@ const Main = () => {
                     Pobierz powyższe dane
                 </button>
             </div>
-        <Chart data={data} />
+        <Chart data={dataCharts} />
 
         </div>
 
