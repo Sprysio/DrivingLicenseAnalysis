@@ -110,7 +110,7 @@ const Main = () => {
       </nav>
       <div className={styles.filters}>
         <label>Miesiąc:</label>
-        <select onChange={(e) => handleFilterChange('DATA_MC', e.target.value)} value={filters.DATA_MC}>
+        <select className={styles.select} onChange={(e) => handleFilterChange('DATA_MC', e.target.value)} value={filters.DATA_MC}>
           <option value="">Wszystkie</option>
           <option value="2023-01">2023-01</option>
           <option value="2023-02">2023-02</option>
@@ -126,7 +126,7 @@ const Main = () => {
           <option value="2023-12">2023-12</option>
         </select>
         <label>Województwo:</label>
-        <select onChange={(e) => handleFilterChange('WOJEWODZTWO', e.target.value)} value={filters.WOJEWODZTWO}>
+        <select className={styles.select} onChange={(e) => handleFilterChange('WOJEWODZTWO', e.target.value)} value={filters.WOJEWODZTWO}>
           <option value="">Wszystkie</option>
           <option value="WOJ. DOLNOŚLĄSKIE">WOJ. DOLNOŚLĄSKIE</option>
           <option value="WOJ. KUJAWSKO-POMORSKIE">WOJ. KUJAWSKO-POMORSKIE</option>
@@ -147,7 +147,7 @@ const Main = () => {
 
         </select>
         <label>Płeć:</label>
-        <select onChange={(e) => handleFilterChange('PLEC', e.target.value)} value={filters.PLEC}>
+        <select  className={styles.select} onChange={(e) => handleFilterChange('PLEC', e.target.value)} value={filters.PLEC}>
           <option value="">Wszystkie</option>
           <option value="K">K</option>
           <option value="M">M</option>
@@ -155,7 +155,7 @@ const Main = () => {
       </div>
       <div className={styles.table_controls}>
         <label htmlFor="rowsPerPage">Liczba wyników na stronie:</label>
-        <select id="rowsPerPage" onChange={handleRowsPerPageChange} value={rowsPerPage}>
+        <select className={styles.select} id="rowsPerPage" onChange={handleRowsPerPageChange} value={rowsPerPage}>
           <option value="20">20</option>
           <option value="50">50</option>
           <option value="100">100</option>

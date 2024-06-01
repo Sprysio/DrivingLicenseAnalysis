@@ -127,3 +127,46 @@
     outline: none;
     box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.5);
 }
+
+.select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+   background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    padding-right: 30px; /* miejsce na strzałkę */
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.select:focus {
+    border-color: #3bb19b;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.select option {
+    padding: 10px;
+}
+
+/* Ukryj strzałkę w starszych przeglądarkach */
+.select::-ms-expand {
+    display: none;
+}
+
+/* Dodanie stylu hover */
+.select:hover {
+    border-color: #888;
+}
+
+/* Dodanie stylu disabled */
+.select:disabled {
+    background-color: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+}
