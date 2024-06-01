@@ -128,3 +128,12 @@
     box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.5);
 }
 
+.chartContainer {
+    width: 800px;
+    height: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
