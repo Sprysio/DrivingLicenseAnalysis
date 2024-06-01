@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react"
-import axios from "axios"
-import styles from "./styles.module.css"
+import { useEffect, useState } from "react";
+import axios from "axios";
+import styles from "./styles.module.css";
+import Chart from "./Chart"; 
 
 const Main = () => {
   const [data, setData] = useState([])
@@ -199,8 +200,12 @@ const Main = () => {
                     Pobierz powyższe dane
                 </button>
             </div>
-    </div>
-  )
-}
+        <Chart data={data} />
+
+        </div>
+
+       
+    );
+};
 
 export default Main
