@@ -205,7 +205,7 @@ const Main = () => {
         </button>
       </div>
       <div className={styles.download_button}>
-                <button className={styles.white_btn} onClick={handleDownload}>
+                <button className={styles.black_btn} onClick={handleDownload}>
                     Pobierz powyższe dane
                 </button>
             </div>
