@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 15s  # How frequently Prometheus scrapes targets for metrics.
+  scrape_timeout: 10s   # The timeout for scraping targets.
+
+scrape_configs:
+  - job_name: 'tylni_koniec'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['tylni_koniec:8888']
