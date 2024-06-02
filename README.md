@@ -108,6 +108,14 @@ Create a `config.json` file in the `./server/config` directory with the followin
 }
 ```
 
+### password.txt file for postgres
+
+Create a `password.txt` file in the `./postgres` directory with the following content:
+
+```plaintext
+password
+```
+
 ## Usage
 
 To start the project, run the following command:
