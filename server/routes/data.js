@@ -56,10 +56,10 @@ router.get("/download-json", async (req, res) => {
             ]
         });
 
-        const filename = `dane_prawa_jazdy_${Object.values(whereConditions).filter(value => !!value).join('_') || ''}.json`;
+        // const filename = `dane_prawa_jazdy_${Object.values(whereConditions).filter(value => !!value).join('_') || ''}.json`;
         const jsonData = JSON.stringify(data, null, 2);
         
-        res.setHeader('Content-disposition', `attachment; filename=${filename}`);
+        // res.setHeader('Content-disposition', `attachment; filename=${filename}`);
         res.setHeader('Content-type', 'application/json');
         
         res.status(200).send(jsonData);

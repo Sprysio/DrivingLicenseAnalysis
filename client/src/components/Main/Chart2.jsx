@@ -1,6 +1,7 @@
 import React, { useState } from 'react'; 
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
+import styles from "./styles.module.css";
 
 const Chart2 = ({ data }) => {
     
@@ -47,8 +48,12 @@ const Chart2 = ({ data }) => {
     };
 
     return (
-        <div>
-            <div>
+        <div className={styles.chartContainer}>
+            
+            <div style={{ width: '800px', height: '500px' }}>
+                
+                <h2>Stosunek wydawanych praw jazdy do wieku</h2>
+                <div>
                 <input
                     type="range"
                     min="0"
@@ -67,8 +72,6 @@ const Chart2 = ({ data }) => {
                 />
                 <span>Wybierz zakres wieku: {ageFilter.min} - {ageFilter.max}</span>
             </div>
-            <div style={{ width: '800px', height: '500px' }}>
-                <h2>Stosunek wydawanych praw jazdy do wieku</h2>
                 <Line data={ageChartData} />
             </div>
         </div>

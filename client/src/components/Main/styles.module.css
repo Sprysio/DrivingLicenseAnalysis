@@ -86,6 +86,7 @@
     margin-top: 20px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
 }
 
@@ -103,11 +104,13 @@
     margin: 0 10px;
 }
 .filters {
-    margin-top: 20px;
+    padding-top: 10px;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 10px;
-}
+    justify-content: center;
+    gap: 10px; /* Odstęp między elementami, możesz dostosować */
+  }
 
 .filters label {
     font-weight: bold;
@@ -225,4 +228,8 @@
 
 .checkboxText {
     font-size: 14px;
+}
+
+.table_component {
+    width: 90%;
 }
