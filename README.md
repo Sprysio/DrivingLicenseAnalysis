@@ -1,54 +1,108 @@
-# DrivingLicenseAnalysis
+# DrivingLicenseAnalysis - Docker Compose Project
 
-application to analyze the statistics of new driving license
-#Running
+This project uses Docker Compose to set up and manage a multi-service application. The services include a frontend, backend, PostgreSQL database, Prometheus for monitoring, Grafana for visualization, and pgAdmin for database administration.
 
-# First start(nizej jak wlaczyc sql)
+## Prerequisites
 
-# 1. Install repository
+Ensure you have Docker and Docker Compose installed on your machine.
 
-cd /project-directory
+## Services
 
-git init
+### przedni_koniec (Frontend)
+- **Build Context**: `./client`
+- **Ports**: `3000:3000`
+- **Networks**: `front_network`
+- **Depends on**: `tylni_koniec`
 
-git remote add origin https://github.com/Sprysio/DrivingLicenseAnalysis
+### tylni_koniec (Backend)
+- **Build Context**: `./server`
+- **Ports**: `8888:8888`
+- **Volumes**:
+  - `./server/.env:/usr/src/app/.env`
+  - `./server/config/config.json:/usr/src/app/config/config.json`
+- **Networks**: `back_network`, `front_network`
+- **Depends on**: `postgres` (with condition `service_healthy`)
 
-git pull origin main
+### postgres (Database)
+- **Build Context**: `./postgres`
+- **Ports**: `5432:5432`
+- **Environment Variables**:
+  - `POSTGRES_DB=drivingstatisticsdb`
+  - `POSTGRES_PASSWORD_FILE=/run/secrets/db_password`
+  - `POSTGRES_USER=postgres`
+- **Volumes**: `pg_data:/var/lib/postgresql/data`
+- **Secrets**: `db_password`
+- **Networks**: `back_network`
 
-# Albo po prostu jakos z github desktop ogarnijcie ale tak mozna komendami w linuxie (i chyba w windowsie jak ma sie git bash pobrane)
+### prometheus (Monitoring)
+- **Build Context**: `./prometheus`
+- **Ports**: `9090:9090`
+- **Volumes**:
+  - `./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml`
+  - `prometheus_data:/prometheus`
+- **Networks**: `back_network`
+- **Depends on**: `tylni_koniec`
 
-file -> clone repository -> url 
+### grafana (Visualization)
+- **Build Context**: `./grafana`
+- **Ports**: `3001:3000`
+- **Environment Variables**:
+  - `GF_SECURITY_ADMIN_USER=admin@example.com`
+  - `GF_SECURITY_ADMIN_PASSWORD=admin`
+  - `GF_USERS_ALLOW_SIGN_UP="false"`
+- **Volumes**:
+  - `grafana_data:/var/lib/grafana`
+  - `./grafana/provisioning/:/etc/grafana/provisioning/`
+- **Networks**: `back_network`
+- **Depends on**: `prometheus`
 
-tak powinno byc w github desktop
+### pgadmin (Database Administration)
+- **Build Context**: `./pgadmin`
+- **Ports**: `5050:80`
+- **Environment Variables**:
+  - `PGADMIN_DEFAULT_EMAIL=admin@example.com`
+  - `PGADMIN_DEFAULT_PASSWORD=admin`
+- **Networks**: `back_network`
+- **Depends on**: `postgres`
 
-# 2. Make .env file in /server:
+## Volumes
 
-MONGODB_URI="mongodb+srv://SprysioU:B6GqkQ666KDbE3wh@lab5.aapvkj9.mongodb.net/?retryWrites=true&w=majority&appName=lab5"
+- `pg_data`: For PostgreSQL data persistence
+- `prometheus_data`: For Prometheus data persistence
+- `grafana_data`: For Grafana data persistence
 
-JWTPRIVATEKEY=abcdefg
+## Networks
 
-SALT=10
+- `front_network`: Network for frontend services
+- `back_network`: Network for backend services
 
-# 3. Installing node_modules
+## Secrets
 
-Go into /server and run `npm install`
+- `db_password`: Stored in `./postgres/password.txt`
 
-Go into /client and run `npm install`
+## Usage
 
-# 4. Starting app:
+To start the project, run the following command:
 
-Go into /server and run `npm start`
+```sh
+docker-compose up --build
 
-Go into /client and run `npm start`
+## Stopping the Services
 
-# Zostal dodane dzialanie sql
+To stop all runing services use:
 
-# Aby uzywac bd trzeba:
+```sh
+docker-compose down
 
-# 1. uruchom skrypt
+## Additional Information
 
-cd awsScript
+The frontend service is accessible at http://localhost:3000
+The backend service is accessible at http://localhost:8888
+Prometheus is accessible at http://localhost:9090
+Grafana is accessible at http://localhost:3001
+pgAdmin is accessible at http://localhost:5050
 
-./service.sh
 
-# Odpali to serwer sql
+# License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
