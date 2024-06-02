@@ -113,7 +113,7 @@ Create a `config.json` file in the `./server/config` directory with the followin
 Create a `password.txt` file in the `./postgres` directory with the following content:
 
 ```plaintext
-password
+8WYAGw8fXQQG4nnX7THv
 ```
 
 ## Usage
