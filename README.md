@@ -80,6 +80,34 @@ Ensure you have Docker and Docker Compose installed on your machine.
 
 - `db_password`: Stored in `./postgres/password.txt`
 
+## Configuration Files
+
+Ensure you have the following configuration files in the appropriate directories:
+
+### .env file for Backend
+Create a `.env` file in the `./server` directory with the following content:
+
+```plaintext
+JWTPRIVATEKEY=abcdefg
+SALT=10
+```
+
+### config.json file for Backend
+Create a `config.json` file in the `./server/config` directory with the following content:
+
+```json
+{
+  "database": {
+    "host": "postgres",
+    "port": 5432,
+    "username": "postgres",
+    "password": "8WYAGw8fXQQG4nnX7THv",
+    "database": "drivingstatisticsdb",
+    "dialect": "postgres"
+  }
+}
+```
+
 ## Usage
 
 To start the project, run the following command:
@@ -98,13 +126,14 @@ docker-compose down
 
 ## Additional Information
 
-The frontend service is accessible at http://localhost:3000
-The backend service is accessible at http://localhost:8888
-Prometheus is accessible at http://localhost:9090
-Grafana is accessible at http://localhost:3001
-pgAdmin is accessible at http://localhost:5050
+- The frontend service is accessible at `http://localhost:3000`
+- The backend service is accessible at `http://localhost:8888`
+- Prometheus is accessible at `http://localhost:9090`
+- Grafana is accessible at `http://localhost:3001`
+- pgAdmin is accessible at `http://localhost:5050`
 
+Ensure you configure your environment files and other necessary configurations as required by each service before starting the containers.
 
-# License
+## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
