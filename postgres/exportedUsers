@@ -1,0 +1,5 @@
+firstName|lastName|email|password|createdAt|updatedAt
+imie1|nazwisko1|test1@gmail.com|$2b$10$b2YYyrl13WxXViu/z59kx.L30JvZktMYQ8ajSgKm4R0a3xm5aeQ6m|2024-05-22 23:42:49.283+00|2024-05-22 23:42:49.283+00
+imie2|nazwisko2|test2@gmail.com|$2b$10$8tFSmkxbIEPFk.v.m1WyHOdfb4Q9r4l11waOFLHRLqdOaiz1VUx.i|2024-05-23 18:02:52.701+00|2024-05-23 18:02:52.701+00
+test3|test3|test3@gmail.com|$2b$10$CKBvFv7W9bUJojoA9Dti5ODV625kz8CaTNQrd8849QomNHjKxyd2G|2024-05-23 18:12:49.406+00|2024-05-23 18:12:49.406+00
+Suavek|Escalupa|dasda@op.pl|$2b$10$5n6CVUezB7m38AkwB5zGz.CZ1IGpB/hTzNbFYN0j4.D62Fhh8cHRa|2024-05-24 10:03:19.291+00|2024-05-24 10:03:19.291+00

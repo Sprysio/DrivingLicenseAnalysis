@@ -1,7 +1,7 @@
 {
   "database": {
-    "host": "localhost",
-    "port": 3307,
+    "host": "postgres",
+    "port": 5432,
     "username": "postgres",
     "password": "8WYAGw8fXQQG4nnX7THv",
     "database": "drivingstatisticsdb",

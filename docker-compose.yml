@@ -1,0 +1,92 @@
+version: "3.8"
+
+services:
+  przedni_koniec:
+    build: ./client
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - tylni_koniec
+    networks:
+      - front_network
+  tylni_koniec:
+    build: ./server
+    restart: always
+    ports:
+      - "8888:8888"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./server/.env:/usr/src/app/.env
+      - ./server/config/config.json:/usr/src/app/config/config.json
+    networks:
+      - back_network
+      - front_network
+  postgres:
+    build: ./postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: drivingstatisticsdb
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+      POSTGRES_USER: postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    secrets:
+      - db_password
+    networks:
+      - back_network
+  prometheus:
+    build: ./prometheus
+    user: root
+    restart: unless-stopped
+    depends_on:
+      - tylni_koniec
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - back_network
+  grafana:
+    build: ./grafana
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    ports:
+      - "3001:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin@example.com
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    networks:
+      - back_network
+  pgadmin:
+    build: ./pgadmin
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    networks:
+      - back_network
+volumes:
+  pg_data:
+  prometheus_data:
+  grafana_data:
+networks:
+  front_network:
+  back_network:
+secrets:
+  db_password:
+    file: ./postgres/password.txt
