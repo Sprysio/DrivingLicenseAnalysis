@@ -86,13 +86,15 @@ To start the project, run the following command:
 
 ```sh
 docker-compose up --build
+```
 
 ## Stopping the Services
 
-To stop all runing services use:
+To stop all running services use:
 
 ```sh
 docker-compose down
+```
 
 ## Additional Information
 
