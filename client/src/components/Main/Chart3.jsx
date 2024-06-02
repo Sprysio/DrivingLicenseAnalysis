@@ -1,13 +1,19 @@
-import React, { useState } from 'react'; 
+import React, { useState, useEffect } from 'react'; 
 import { Bar } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import styles from "./styles.module.css";
 
 const Chart3 = ({ data }) => {
-    const [selectedRegions, setSelectedRegions] = useState({});
-
     // Inicjalizacja stanów dla województw
     const regions = Array.from(new Set(data.map(item => item.WOJEWODZTWO.toLowerCase().replace("woj. ", ""))));
+
+    // Zainicjalizowanie stanu selectedRegions z wartościami true dla wszystkich regionów
+    const [selectedRegions, setSelectedRegions] = useState(
+        regions.reduce((acc, region) => {
+            acc[region] = true;
+            return acc;
+        }, {})
+    );
 
     // Funkcja do zarządzania zaznaczeniem checkboxów
     const handleCheckboxChange = (event) => {
@@ -66,4 +72,4 @@ const Chart3 = ({ data }) => {
     );
 };
 
-export default Chart3;
+export default Chart3
